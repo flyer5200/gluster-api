@@ -5,7 +5,6 @@ import (
 	"os/exec"
 	"strings"
 	"log"
-	"bytes"
 )
 
 type Volume struct {
