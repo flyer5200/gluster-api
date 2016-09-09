@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"gluster-api/models"
+	"bytes"
 )
 
 type VolumeController struct {
@@ -47,12 +48,12 @@ func (c *VolumeController) Query() {
 	name := c.GetString(":name")
 	result, err := models.QueryVolume(name)
 	if(err == nil){
-		c.Data["json"] = map[string]string{"status": result}
+		c.Ctx.Output.Body(bytes.NewBufferString(result))
 	}
 	if(err != nil){
 		c.Data["json"] = map[string]string{"error": err.Error()}
+		c.ServeJSON()
 	}
-	c.ServeJSON()
 }
 
 // @Title Get
@@ -63,9 +64,10 @@ func (c *VolumeController) Query() {
 func (c *VolumeController) List() {
 	result, err := models.ListVolume()
 	if(err == nil){
-		c.Data["json"] = map[string]string{"status": result}
+		c.Ctx.Output.Body(bytes.NewBufferString(result))
 	}
 	if(err != nil){
 		c.Data["json"] = map[string]string{"error": err.Error()}
+		c.ServeJSON()
 	}
 }

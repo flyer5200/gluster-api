@@ -62,7 +62,7 @@ func DeleteVolume(name string) (bool, error) {
 func ListVolume() (string, error) {
 	result, err := Gluster("volume","info","all")
 	if (err != nil) {
-		return "", err
+		return result, err
 	}
 	return result,nil
 }
@@ -70,7 +70,7 @@ func ListVolume() (string, error) {
 func QueryVolume(name string) (string, error) {
 	result, err := Gluster("volume","info",name)
 	if (err != nil) {
-		return "", err
+		return result, err
 	}
 	return result,nil
 }
