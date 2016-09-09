@@ -48,6 +48,7 @@ func (c *VolumeController) Query() {
 	name := c.GetString(":name")
 	result, err := models.QueryVolume(name)
 	if(err == nil){
+		c.Ctx.Output.Header("Content-Type", "application/json; charset=utf-8")
 		c.Ctx.Output.Body(bytes.NewBufferString(result))
 	}
 	if(err != nil){
@@ -64,6 +65,7 @@ func (c *VolumeController) Query() {
 func (c *VolumeController) List() {
 	result, err := models.ListVolume()
 	if(err == nil){
+		c.Ctx.Output.Header("Content-Type", "application/json; charset=utf-8")
 		c.Ctx.Output.Body(bytes.NewBufferString(result))
 	}
 	if(err != nil){
