@@ -49,7 +49,7 @@ func (c *VolumeController) Query() {
 	result, err := models.QueryVolume(name)
 	if(err == nil){
 		c.Ctx.Output.Header("Content-Type", "application/json; charset=utf-8")
-		c.Ctx.Output.Body(bytes.NewBufferString(result))
+		c.Ctx.Output.Body(bytes.NewBufferString(result).Bytes())
 	}
 	if(err != nil){
 		c.Data["json"] = map[string]string{"error": err.Error()}
@@ -66,7 +66,7 @@ func (c *VolumeController) List() {
 	result, err := models.ListVolume()
 	if(err == nil){
 		c.Ctx.Output.Header("Content-Type", "application/json; charset=utf-8")
-		c.Ctx.Output.Body(bytes.NewBufferString(result))
+		c.Ctx.Output.Body(bytes.NewBufferString(result).Bytes())
 	}
 	if(err != nil){
 		c.Data["json"] = map[string]string{"error": err.Error()}
