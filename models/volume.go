@@ -41,18 +41,11 @@ func Gluster(vars ...string) (string, error) {
 		log.Fatalln(err.Error())
 		return "", err
 	}
-	log.Println(json.String())
 	return json.String(), err
 }
 
 func CreateVolume(v *Volume) (bool, error) {
-	var dsl = bytes.Buffer{}
-	dsl.WriteString("volume create " + v.Name)
-	dsl.WriteString("replica 2 transport tcp ")
-	dsl.WriteString("10.9.30.201:/data/" + v.BrickPath)
-	dsl.WriteString("10.9.31.112:/data/"+ v.BrickPath)
-	log.Println(dsl)
-	_, err := Gluster(dsl.String())
+	_, err := Gluster("volume","create ",v.Name,"replica 2","transport tcp","10.9.30.201:/data/" + v.BrickPath,"10.9.31.112:/data/"+ v.BrickPath)
 	if (err != nil) {
 		return false, err
 	}
@@ -60,8 +53,7 @@ func CreateVolume(v *Volume) (bool, error) {
 }
 
 func DeleteVolume(name string) (bool, error) {
-	dsl := "volume delete " + name
-	_, err := Gluster(dsl)
+	_, err := Gluster("volume","delete",name)
 	if (err != nil) {
 		return false, err
 	}
@@ -69,8 +61,7 @@ func DeleteVolume(name string) (bool, error) {
 }
 
 func ListVolume() (string, error) {
-	var dsl = "volume info all "
-	result, err := Gluster(dsl)
+	result, err := Gluster("volume","info","all")
 	if (err != nil) {
 		return "", err
 	}
@@ -78,8 +69,7 @@ func ListVolume() (string, error) {
 }
 
 func QueryVolume(name string) (string, error) {
-	dsl := "volume info all " + name
-	result, err := Gluster(dsl)
+	result, err := Gluster("volume","info",name)
 	if (err != nil) {
 		return "", err
 	}
