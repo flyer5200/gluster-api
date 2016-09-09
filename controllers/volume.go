@@ -10,7 +10,11 @@ import (
 type VolumeController struct {
 	beego.Controller
 }
-
+// @Title Delete
+// @Description get volume by name
+// @Param name
+// @Success 200
+// @Failure 400 :name is empty
 // @router / [post]
 func (c *VolumeController) Create() {
 	var ob *models.Volume
@@ -24,8 +28,12 @@ func (c *VolumeController) Create() {
 	}
 	c.ServeJSON()
 }
-
-// @router / [delete]
+// @Title Delete
+// @Description get volume by name
+// @Param name
+// @Success 200
+// @Failure 400 :name is empty
+// @router /:name [delete]
 func (c *VolumeController) Delete() {
 	name := c.GetString(":name")
 	result, err := models.DeleteVolume(name)
