@@ -20,6 +20,11 @@ func init() {
 				&controllers.VolumeController{},
 			),
 		),
+		beego.NSNamespace("/quota",
+			beego.NSInclude(
+				&controllers.QuotaController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
