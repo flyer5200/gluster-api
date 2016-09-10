@@ -41,6 +41,27 @@ func (c *VolumeController) Create() {
 		c.ServeJSON()
 	}
 }
+
+// @Title Delete
+// @Description get volume by name
+// @Param name
+// @Success 200
+// @Failure 400 :name is empty
+// @router /start/:name [get]
+func (c *VolumeController) Start() {
+	name := c.GetString(":name")
+	result, err := models.StartVolume(name)
+	if(err == nil){
+		c.Ctx.Output.Header("Content-Type", "application/json; charset=utf-8")
+		c.Ctx.Output.Body(bytes.NewBufferString(result).Bytes())
+	}
+	if(err != nil){
+		c.Data["json"] = map[string]string{"error": err.Error()}
+		c.ServeJSON()
+	}
+}
+
+
 // @Title Delete
 // @Description get volume by name
 // @Param name

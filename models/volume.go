@@ -51,6 +51,14 @@ func CreateVolume(masterAddr string, slaveAddr string, v *Volume) (string, error
 	return result, nil
 }
 
+func StartVolume(name string) (string, error) {
+	result, err := Gluster("volume", "start",name,"force","--mode=script")
+	if (err != nil) {
+		return "", err
+	}
+	return result, nil
+}
+
 func DeleteVolume(name string) (bool, error) {
 	_, err := StopVolume(name)
 	if (err == nil) {
