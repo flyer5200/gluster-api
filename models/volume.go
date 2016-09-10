@@ -5,6 +5,7 @@ import (
 	"os/exec"
 	"strings"
 	"log"
+	"github.com/astaxie/beego"
 )
 
 type Volume struct {
@@ -43,34 +44,46 @@ func Gluster(vars ...string) (string, error) {
 	return json.String(), err
 }
 
-func CreateVolume(v *Volume) (bool, error) {
-	_, err := Gluster("volume","create ",v.Name,"replica 2","transport tcp","10.9.30.201:/data/" + v.BrickPath,"10.9.31.112:/data/"+ v.BrickPath)
+func CreateVolume(masterAddr string, slaveAddr string, v *Volume) (bool, error) {
+	beego.BConfig.RunMode
+	_, err := Gluster("volume", "create ", v.Name, "replica 2", "transport tcp", masterAddr + v.BrickPath, slaveAddr + v.BrickPath)
 	if (err != nil) {
 		return false, err
 	}
-	return true,nil
+	return true, nil
 }
 
 func DeleteVolume(name string) (bool, error) {
-	_, err := Gluster("volume","delete",name)
+	_, err := StopVolume(name)
+	if (err == nil) {
+		_, err := Gluster("volume", "delete", name,"--mode=script")
+		if (err != nil) {
+			return false, err
+		}
+	}
+	return true, nil
+}
+
+func StopVolume(name string) (bool, error) {
+	_, err := Gluster("volume", "stop",name,"force","--mode=script")
 	if (err != nil) {
 		return false, err
 	}
-	return true,nil
+	return true, nil
 }
 
 func ListVolume() (string, error) {
-	result, err := Gluster("volume","info","all")
+	result, err := Gluster("volume", "info", "all")
 	if (err != nil) {
 		return result, err
 	}
-	return result,nil
+	return result, nil
 }
 
 func QueryVolume(name string) (string, error) {
-	result, err := Gluster("volume","info",name)
+	result, err := Gluster("volume", "info", name)
 	if (err != nil) {
 		return result, err
 	}
-	return result,nil
+	return result, nil
 }

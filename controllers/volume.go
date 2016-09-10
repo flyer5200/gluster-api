@@ -7,6 +7,17 @@ import (
 	"bytes"
 )
 
+var masterAddr string;
+var slaveAddr string;
+
+func initGlusterParam(){
+	if(masterAddr == nil){
+		masterAddr = beego.AppConfig.String("MasterAddr")
+	}
+	if(slaveAddr == nil){
+		slaveAddr = beego.AppConfig.String("SlaveAddr")
+	}
+}
 type VolumeController struct {
 	beego.Controller
 }
@@ -19,7 +30,8 @@ type VolumeController struct {
 func (c *VolumeController) Create() {
 	var ob *models.Volume
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
-	result, err := models.CreateVolume(ob)
+	initGlusterParam()
+	result, err := models.CreateVolume(masterAddr,slaveAddr,ob)
 	if(err == nil){
 		c.Data["json"] = map[string]bool{"status": result}
 	}
