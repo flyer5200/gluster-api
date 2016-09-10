@@ -32,7 +32,7 @@ func ChangeQuota(v *QuotaParam) (string, error) {
 }
 
 
-func RemoveQuota(volume *string) (string, error) {
+func RemoveQuota(volume string) (string, error) {
 	result, err := Gluster("volume", "quota", volume, "remove","/")
 	if (err != nil) {
 		return "", err
@@ -40,7 +40,7 @@ func RemoveQuota(volume *string) (string, error) {
 	return result, nil
 }
 
-func QueryQuota(volume *string) (string, error) {
+func QueryQuota(volume string) (string, error) {
 	result, err := Gluster("volume", "quota", volume, "list")
 	if (err != nil) {
 		return "", err
