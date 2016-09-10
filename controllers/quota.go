@@ -17,7 +17,7 @@ type QuotaController struct {
 // @Success 200
 // @Failure 400 body is empty
 // @router / [post]
-func (c *VolumeController) CreateQuota() {
+func (c *QuotaController) CreateQuota() {
 	var ob *models.QuotaParam
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	result, err := models.CreateQuota(ob)
@@ -37,7 +37,7 @@ func (c *VolumeController) CreateQuota() {
 // @Success 200
 // @Failure 400 body is empty
 // @router / [put]
-func (c *VolumeController) ChangeQuota() {
+func (c *QuotaController) ChangeQuota() {
 	var ob *models.QuotaParam
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	initGlusterParam()
@@ -58,7 +58,7 @@ func (c *VolumeController) ChangeQuota() {
 // @Success 200
 // @Failure 400 body is empty
 // @router /:volume [delete]
-func (c *VolumeController) RemoveQuota() {
+func (c *QuotaController) RemoveQuota() {
 	volume := c.GetString(":volume")
 	result, err := models.RemoveQuota(volume)
 	if(err == nil){
@@ -77,7 +77,7 @@ func (c *VolumeController) RemoveQuota() {
 // @Success 200
 // @Failure 400 body is empty
 // @router /:volume [get]
-func (c *VolumeController) QueryQuota() {
+func (c *QuotaController) QueryQuota() {
 	volume := c.GetString(":volume")
 	result, err := models.QueryQuota(volume)
 	if(err == nil){
