@@ -20,6 +20,7 @@ type QuotaController struct {
 func (c *QuotaController) CreateQuota() {
 	var ob *models.QuotaParam
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
+	ob.Percent = "100%"
 	result, err := models.CreateQuota(ob)
 	if(err == nil){
 		c.Ctx.Output.Header("Content-Type", "application/json; charset=utf-8")
