@@ -10,16 +10,7 @@ import (
 type Volume struct {
 	Name      string
 	Status    int
-	Quota     Quota
 	BrickPath string
-}
-
-type Quota struct {
-	Path      string
-	Hardlimit string
-	Softlimit string
-	Used      string
-	Available string
 }
 
 func Gluster(vars ...string) (string, error) {

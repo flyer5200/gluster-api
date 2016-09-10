@@ -38,7 +38,7 @@ func (c *VolumeController) CreateQuota() {
 // @Failure 400 body is empty
 // @router / [put]
 func (c *VolumeController) ChangeQuota() {
-	var ob *models.Quota
+	var ob *models.QuotaParam
 	json.Unmarshal(c.Ctx.Input.RequestBody, &ob)
 	initGlusterParam()
 	result, err := models.ChangeQuota(ob)
