@@ -5,7 +5,6 @@ import (
 	"os/exec"
 	"strings"
 	"log"
-	"github.com/astaxie/beego"
 )
 
 type Volume struct {
