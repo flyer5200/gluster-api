@@ -45,7 +45,6 @@ func Gluster(vars ...string) (string, error) {
 }
 
 func CreateVolume(masterAddr string, slaveAddr string, v *Volume) (bool, error) {
-	beego.BConfig.RunMode
 	_, err := Gluster("volume", "create ", v.Name, "replica 2", "transport tcp", masterAddr + v.BrickPath, slaveAddr + v.BrickPath)
 	if (err != nil) {
 		return false, err
