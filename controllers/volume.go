@@ -11,10 +11,10 @@ var masterAddr string;
 var slaveAddr string;
 
 func initGlusterParam(){
-	if(masterAddr == nil){
+	if(masterAddr == ""){
 		masterAddr = beego.AppConfig.String("MasterAddr")
 	}
-	if(slaveAddr == nil){
+	if(slaveAddr == ""){
 		slaveAddr = beego.AppConfig.String("SlaveAddr")
 	}
 }
