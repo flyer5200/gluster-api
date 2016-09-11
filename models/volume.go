@@ -22,13 +22,12 @@ func Gluster(vars ...string) (string, error) {
 	log.Println(vars, args, gCmd.Path, gCmd.Args)
 	output, err := gCmd.CombinedOutput()
 	if err != nil {
-		log.Fatalln(err.Error())
-		return "", err
+		log.Println(string(output))
 	}
 	xml := strings.NewReader(string(output))
 	json, err := xml2json.Convert(xml)
 	if err != nil {
-		log.Fatalln(err.Error())
+		log.Println(err.Error())
 		return "", err
 	}
 	return json.String(), err
