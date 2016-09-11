@@ -39,6 +39,10 @@ func CreateVolume(masterAddr string, slaveAddr string, v *Volume) (string, error
 	if (err != nil) {
 		return "", err
 	}
+	_,err = StartVolume(v.Name)
+	if (err != nil) {
+		return "", err
+	}
 	result, err := Gluster("volume", "set", v.Name, "nfs.disable","on")
 	if (err != nil) {
 		return "", err
